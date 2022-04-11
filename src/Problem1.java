@@ -1,6 +1,4 @@
 import java.util.HashSet;
-import java.util.NavigableSet;
-import java.util.TreeSet;
 
 public class Problem1 {
 
@@ -47,35 +45,50 @@ public class Problem1 {
         return true;
     } */
 
+    public static boolean Valid(char[][] board){
 
-
+        int temp ;
+        for (char[] chars : board) {
+            for (int j = 0; j < board.length; j++) {
+                if (chars[j] != '.') {
+                    temp = Character.getNumericValue(chars[j]);
+                    if (temp == -1 | temp > 9 | temp < 1) return false;
+                }
+            }
+        }
+        return true;
+    }
 
    public static boolean IsValidHashSetString(char[][] board) {
 
-        HashSet<String> set = new HashSet<>();// using String HashSet
 
-       for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (board[i][j] == '.'){
-                    continue;
-                }
-                if(!set.add("col" + j + board[i][j]) || !set.add("row" + i + board[i][j]))  return false;
+       boolean valida = Valid(board);
+       if (!valida) return false;
 
-        }
-    }
+       HashSet<String> set = new HashSet<>(); //using String HashSet
+
+           for (int i = 0; i < 9; i++) {
+               for (int j = 0; j < 9; j++) {
+                   if (board[i][j] != '.') {
+                       if (!set.add("col" + j + board[i][j]) || !set.add("row" + i + board[i][j])) return false;
+                   }
+               }
+           }
        return true;
-    }
+   }
+
+
 
     public static boolean IsValidHashSetInteger(char[][] board) {
+
+        boolean valida = Valid(board);
+        if (!valida) return false;
 
         HashSet<Integer> set = new HashSet<>(); // using Integer HashSet
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                if (board[i][j] == '.'){
-                    continue;
-                }
-                else {
-                    if (!set.add( i * 10 + board[i][j]) || !set.add(100 + j * 10 + board[i][j])) return false;
+                if (board[i][j] != '.'){
+                    if (!set.add(i * 10 + board[i][j]) || !set.add(100 + j * 10 + board[i][j])) return false;
                 }
             }
         }
@@ -107,5 +120,5 @@ public class Problem1 {
                 {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
                 {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
 
-        System.out.println(IsValidHashSetInteger(board));
+        System.out.println(IsValidHashSetString(board));
     }}
