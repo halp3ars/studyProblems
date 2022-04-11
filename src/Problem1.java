@@ -1,9 +1,10 @@
+import java.util.HashSet;
 import java.util.NavigableSet;
 import java.util.TreeSet;
 
 public class Problem1 {
 
-    public static boolean isValid(char[][] board) {
+    /* public static boolean isValid(char[][] board) {
 
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) // check columns
@@ -44,34 +45,49 @@ public class Problem1 {
         }
         System.out.println("Matrix is valid");
         return true;
+    } */
+
+
+
+
+   public static boolean IsValidHashSetString(char[][] board) {
+
+        HashSet<String> set = new HashSet<>();// using String HashSet
+
+       for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == '.'){
+                    continue;
+                }
+                if(!set.add("col" + j + board[i][j]) || !set.add("row" + i + board[i][j]))  return false;
+
+        }
+    }
+       return true;
     }
 
-  /*  public static boolean IsValidNavigableSetRow(char[][] board) {
+    public static boolean IsValidHashSetInteger(char[][] board) {
 
-
-        NavigableSet<Character> navSetRows = new TreeSet<>();
-
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                if (board[i][j] == '.') {
+        HashSet<Integer> set = new HashSet<>(); // using Integer HashSet
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == '.'){
                     continue;
-                } else if (board[i][j] >= '1' && board[i][j] <= 9) {
-                    navSetRows.add(board[i][j]);
-
                 }
-                navSetRows.clear();
+                else {
+                    if (!set.add( i * 10 + board[i][j]) || !set.add(100 + j * 10 + board[i][j])) return false;
+                }
             }
         }
         return true;
-    }*/
-
+    }
 
 
 
     public static void main(String[] args) {
         char[][] board = {
-                {'5', '3', '.', '.', '7', '.', '.', '.', '.'},
-                {'6', '.', '.', '1', '9', '5', '.', '.', '.'},
+                {'5', '3', '7', '.', '.', '.', '.', '.', '.'},
+                {'6', '7', '.', '1', '9', '5', '.', '.', '.'},
                 {'.', '9', '8', '.', '.', '.', '.', '6', '.'},
                 {'8', '.', '.', '.', '6', '.', '.', '.', '3'},
                 {'4', '.', '.', '8', '.', '3', '.', '.', '1'},
@@ -91,5 +107,5 @@ public class Problem1 {
                 {'.', '.', '.', '4', '1', '9', '.', '.', '5'},
                 {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
 
-        System.out.println(isValid(board2));
+        System.out.println(IsValidHashSetInteger(board));
     }}
